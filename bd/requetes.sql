@@ -45,7 +45,6 @@ order by count(*) desc;
 -- Test de recherche de mots en appliquant un poids
 select 
 	w2.id_website, 
-	w2.link, 
 	w2.link ,
 	sum(
 		coalesce(ww.nb_occurrences_title, 0) * (1 + log(1 + w2.title_nb_words)) +
