@@ -18,6 +18,8 @@
 
 Installer les librairies suivantes : 
 ```bash
+pip install sqlalchemy
+pip install python-dotenv
 ```
 A la racine du projet créer un fichier .env permettant de stocker les variables d'environnement. Exemple :
 ```bash
