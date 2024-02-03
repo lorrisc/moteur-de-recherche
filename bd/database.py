@@ -1,13 +1,8 @@
-from sqlalchemy import Base, Column, Integer, String, Text, Date, ForeignKey, relationship, create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-
-from dotenv import load_dotenv
-import os
-
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey , create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base, relationship
+from datetime import datetime
 
 Base = declarative_base()
-
 
 class Website(Base):
     __tablename__ = 'website'
@@ -27,7 +22,7 @@ class Website(Base):
     title6_nb_words = Column(Integer)
     text_nb_words = Column(Integer)
     img_alt_nb_words = Column(Integer)
-    updated_date = Column(Date)
+    updated_date = Column(DateTime, default=datetime.utcnow)
     website_words = relationship('WebsiteWord', back_populates='website')
     website_links_from = relationship('WebsiteLink', back_populates='website_from', foreign_keys='WebsiteLink.id_website_from')
     website_links_to = relationship('WebsiteLink', back_populates='website_to', foreign_keys='WebsiteLink.id_website_to')
@@ -36,7 +31,7 @@ class PendingSite(Base):
     __tablename__ = 'pending_site'
     id_pending_site = Column(Integer, primary_key=True)
     link = Column(String, nullable=False)
-    created_date = Column(String, nullable=False)
+    created_date = Column(DateTime, default=datetime.utcnow, nullable=False)
 
 class Word(Base):
     __tablename__ = 'word'
@@ -67,17 +62,3 @@ class WebsiteWord(Base):
     nb_occurences_img_alt = Column(Integer)
     website = relationship('Website', back_populates='website_words')
     word = relationship('Word', back_populates='website_words')
-
-
-# Variable d'environnement connxion base de données
-load_dotenv()
-DB_SERVER = os.getenv('DB_SERVER')
-DB_PORT = os.getenv('DB_PORT')
-DB_USER = os.getenv('DB_USER')
-DB_PWD = os.getenv('DB_PWD')
-DB_BASE = os.getenv('DB_BASE')
-
-engine = create_engine(f'postgresql://{DB_USER}:{DB_PWD}@{DB_SERVER}:{DB_PORT}/{DB_BASE}')
-Base.metadata.create_all(bind=engine)
-
-Session = sessionmaker(bind=engine)
