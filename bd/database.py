@@ -30,7 +30,7 @@ class Website(Base):
 class PendingSite(Base):
     __tablename__ = 'pending_site'
     id_pending_site = Column(Integer, primary_key=True)
-    link = Column(String, nullable=False)
+    link = Column(String, nullable=False, index=True)
     created_date = Column(DateTime, default=datetime.utcnow, nullable=False)
 
 class Word(Base):

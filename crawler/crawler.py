@@ -225,7 +225,7 @@ def crawl_page(url):
 
         session.commit()
 
-        print(f"Site inséré (+{len(pending_sites_to_add)}): {url}")
+        print(f"Site inséré ({len(links)} -> +{len(pending_sites_to_add)}): {url}")
 
 
     except Exception as e:
@@ -281,5 +281,13 @@ if __name__ == '__main__':
             for url in starting_urls:
                 crawl_page(url)
         else:
+            pending_links_final = list(pending_links_final)
+            # Écrire les liens à visiter dans un fichier
+            # Si un site met du temps on peut savoir lequel c'est
+            with open("sites_a_visiter.txt", 'w', encoding='utf-8') as file:
+                for url in pending_links_final:
+                    file.write(url + '\n')
+
+            # Ensuite, parcourir chaque lien
             for url in pending_links_final:
                 crawl_page(url)
