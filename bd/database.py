@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey , create_engine
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey , create_engine, Index
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 from datetime import datetime
 
@@ -7,7 +7,7 @@ Base = declarative_base()
 class Website(Base):
     __tablename__ = 'website'
     id_website = Column(Integer, primary_key=True)
-    domain = Column(String)
+    domain = Column(String, index=True)
     title = Column(String)
     title_nb_words = Column(Integer)
     link = Column(String, unique=True, nullable=False)

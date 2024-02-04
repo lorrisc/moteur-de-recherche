@@ -32,9 +32,11 @@ def get_words(ban_list, text):
     if text is None:
         return []
     
-    # Garder uniquement les caracètres alphanumériques et les espaces
-    text_brut = ''.join(c if c.isalpha() or c.isspace() else ' ' for c in text)
+    # Garder uniquement les caracètres alphanumériques et les espaces et les nombres
+    text_brut = ''.join(c if c.isalnum() or c.isspace() else ' ' for c in text)
     text_brut = ' '.join(text_brut.split()).lower()
+
+
 
     # Supprimer les mots du text brut qui sont dans la ban list
     text_brut_mots_techniques = ' '.join(word for word in text_brut.split() if word not in ban_list)
@@ -227,8 +229,16 @@ def crawl_page(url):
 
 
     except Exception as e:
+        session.rollback()
         logging.error(f"{url} - Erreur: {e}")
         print(e)
+
+        # Supprimer l'URL de la liste d'attente
+        pending_site = session.query(PendingSite).filter(PendingSite.link == url).first()
+        if pending_site:
+            session.delete(pending_site)
+
+        session.commit()
 
 
 if __name__ == '__main__':

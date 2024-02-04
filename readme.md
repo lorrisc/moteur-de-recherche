@@ -10,6 +10,8 @@
 4. Stockage en base de données
 5. Recommencer avec un lien en attente
 
+Limite : l'utilisation de la librairie BeautifulSoup ne permet pas de récupérer le contenu des sites webs chargés dynamiquement en javascript. Ceux-ci seront donc mal référencés.
+
 ### Moteur de recherche
 
 ## Installation
@@ -19,7 +21,10 @@
 Installer les librairies suivantes : 
 ```bash
 pip install sqlalchemy
+pip install beautifulsoup4
 pip install python-dotenv
+pip install nltk
+pip install requests
 ```
 A la racine du projet créer un fichier .env permettant de stocker les variables d'environnement. Exemple :
 ```bash

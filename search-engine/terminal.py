@@ -34,7 +34,7 @@ except:
 # Traitement du texte de la recherche
     
 # Garder uniquement les caratères alphanumériques et les espaces
-text_brut = ''.join(c if c.isalpha() or c.isspace() else ' ' for c in search_text)
+text_brut = ''.join(c if c.isalnum() or c.isspace() else ' ' for c in search_text)
 text_brut = ' '.join(text_brut.split()).lower()
 
 # Supprimer les mots du text brut qui sont dans la ban list
