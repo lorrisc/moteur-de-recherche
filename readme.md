@@ -14,6 +14,8 @@ Limite : l'utilisation de la librairie BeautifulSoup ne permet pas de récupére
 
 ### Moteur de recherche
 
+Il est actuellement possible d'utiliser un pseudo moteur de recherche dans le terminal. Lancer search-engine/terminal.py, saississez vos mots clés, ou votre phrase, puis la langue. Les résultats apparaitrons, vous aurez la possibilité de télécharger un récapitulatif .txt de la recherche.
+
 ## Installation
 
 - Installer Python
